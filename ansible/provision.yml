@@ -1,0 +1,9 @@
+---
+- hosts: all
+  name: Set up Jenkins
+  vars:
+    ansible_user: ec2-user
+  tasks:
+
+    - debug:
+        msg: Hello world!
