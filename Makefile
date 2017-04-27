@@ -1,5 +1,8 @@
 all: terraform ansible
 
+install_roles:
+	cd ansible && ansible-galaxy install -p roles -r requirements.yml
+
 .PHONY: terraform
 terraform:
 	cd terraform && terraform apply

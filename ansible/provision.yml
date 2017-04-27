@@ -5,5 +5,10 @@
     ansible_user: ec2-user
   tasks:
 
-    - debug:
-        msg: Hello world!
+    - name: Install Jenkins
+      become: true
+      include_role:
+        name: geerlingguy.jenkins
+      vars:
+        java_packages:
+          - java-1.8.0-openjdk
