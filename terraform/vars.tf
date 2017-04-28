@@ -9,7 +9,8 @@ variable "jenkins_name" {
 }
 
 variable "ami" {
-  # RHEL 7.0
+  # RHEL 7.0 (HVM)
+  # https://aws.amazon.com/marketplace/pp/B00KWBZVK6
   default = "ami-a8d369c0"
 }
 
