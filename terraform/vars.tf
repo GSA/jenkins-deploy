@@ -22,3 +22,7 @@ variable "key_name" {
   default = "jenkins"
   description = "SSH key name in your AWS account for AWS instances."
 }
+
+variable "vm_user" {
+  default = "ec2-user"
+}
