@@ -4,11 +4,7 @@
   vars:
     ansible_user: ec2-user
   become: true
-  tasks:
-
-    - name: Install Jenkins
-      include_role:
-        name: geerlingguy.jenkins
-      vars:
-        java_packages:
-          - java-1.8.0-openjdk
+  roles:
+    - role: geerlingguy.jenkins
+      java_packages:
+        - java-1.8.0-openjdk
