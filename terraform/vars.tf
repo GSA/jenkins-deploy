@@ -26,3 +26,13 @@ variable "key_name" {
 variable "vm_user" {
   default = "ec2-user"
 }
+
+variable "http_cidrs" {
+  default = ["0.0.0.0/0"]
+  description = "CIDRs for accessing the instance via HTTP(S)."
+}
+
+variable "ssh_cidrs" {
+  default = ["0.0.0.0/0"]
+  description = "CIDRs for accessing the instance via SSH."
+}
