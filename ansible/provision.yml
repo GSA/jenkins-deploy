@@ -3,18 +3,10 @@
   name: Set up Jenkins
   vars:
     ansible_user: ec2-user
+  become: true
   tasks:
 
-    # TODO fix upstream
-    - name: Make Groovy folder writable
-      file:
-        path: /var/lib/jenkins/init.groovy.d
-        state: directory
-        # TODO verify this is what it should be
-        mode: 0777
-
     - name: Install Jenkins
-      become: true
       include_role:
         name: geerlingguy.jenkins
       vars:
