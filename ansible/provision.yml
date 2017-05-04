@@ -13,12 +13,10 @@
         # https://plugins.jenkins.io/<ID>
         - workflow-aggregator
 
-  tasks:
-
     # required for pip
-    - name: Enable EPEL repository
-      yum:
-        name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    - geerlingguy.repo-epel
+
+  tasks:
 
     - name: Install dependencies
       yum:
