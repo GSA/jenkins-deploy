@@ -18,6 +18,9 @@
 
   tasks:
 
+    - name: Ensure Jenkins is restarted
+      meta: flush_handlers
+
     - name: Install dependencies
       yum:
         name:
