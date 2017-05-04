@@ -5,4 +5,7 @@ java_packages:
 
 # https://plugins.jenkins.io/<ID>
 jenkins_plugins:
+  - github
+  - timestamper
   - workflow-aggregator
+  - ws-cleanup
