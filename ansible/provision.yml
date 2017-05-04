@@ -5,17 +5,9 @@
     ansible_user: ec2-user
   become: true
   roles:
-
-    - role: geerlingguy.jenkins
-      java_packages:
-        - java-1.8.0-openjdk
-      jenkins_plugins:
-        # https://plugins.jenkins.io/<ID>
-        - workflow-aggregator
-
+    - geerlingguy.jenkins
     # required for pip
     - geerlingguy.repo-epel
-
   tasks:
 
     - name: Ensure Jenkins is restarted

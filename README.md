@@ -11,7 +11,6 @@ This repository is reusable deployment code/configuration of Jenkins, which gets
 1. Create an Ansible secrets file.
 
     ```sh
-    mkdir -p ansible/group_vars/all
     cp ansible/secrets-example.yml ansible/group_vars/all/secrets.yml
     # set values for the variables
     ```

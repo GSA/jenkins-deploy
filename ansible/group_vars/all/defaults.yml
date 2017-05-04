@@ -1,0 +1,8 @@
+---
+# https://github.com/geerlingguy/ansible-role-java#role-variables
+java_packages:
+  - java-1.8.0-openjdk
+
+# https://plugins.jenkins.io/<ID>
+jenkins_plugins:
+  - workflow-aggregator
