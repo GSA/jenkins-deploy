@@ -5,6 +5,7 @@ java_packages:
 
 # https://plugins.jenkins.io/<ID>
 jenkins_plugins:
+  - blueocean
   - github
   - timestamper
   - workflow-aggregator
