@@ -16,6 +16,7 @@
     - name: Install dependencies
       yum:
         name:
+          - ansible
           - git
           - python2-pip
 

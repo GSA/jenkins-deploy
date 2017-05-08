@@ -5,6 +5,7 @@ java_packages:
 
 # https://plugins.jenkins.io/<ID>
 jenkins_plugins:
+  - ansible
   - blueocean
   - github
   - timestamper
