@@ -12,7 +12,9 @@ pipeline {
 
     stage('Provision') {
       steps {
-        ansiblePlaybook playbook: 'helloworld.yml'
+        ansiColor('xterm') {
+          ansiblePlaybook playbook: 'helloworld.yml', colorized: true
+        }
       }
     }
   }
