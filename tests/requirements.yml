@@ -1,0 +1,4 @@
+---
+# should match what's in `dependencies` list of `../meta/main.yml`
+- src: geerlingguy.jenkins
+- src: geerlingguy.repo-epel

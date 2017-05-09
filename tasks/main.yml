@@ -1,0 +1,23 @@
+---
+- name: Restart Jenkins, if necessary
+  meta: flush_handlers
+
+- name: Install dependencies
+  yum:
+    name:
+      - ansible
+      - git
+      - python2-pip
+
+- name: Install dependencies for Jenkins modules
+  pip:
+    name: python-jenkins
+
+# http://stackoverflow.com/a/34522653/358804
+- name: Wait for Jenkins to be available
+  uri:
+    url: http://127.0.0.1:{{ jenkins_http_port }}
+  register: result
+  until: result.status == 200
+  retries: 60
+  delay: 1

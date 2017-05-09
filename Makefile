@@ -1,16 +1,19 @@
+TERRAFORM_DIR := terraform
+PLAYBOOK_DIR := tests
+
 all: terraform ansible
 
 install_roles:
-	cd ansible && ansible-galaxy install -p roles -r requirements.yml
+	cd $(PLAYBOOK_DIR) && ansible-galaxy install -p roles -r requirements.yml
 
 .PHONY: terraform
 terraform:
-	cd terraform && terraform apply
+	cd $(TERRAFORM_DIR) && terraform apply
 
 INVENTORY_PATH := $(shell which terraform-inventory)
 .PHONY: ansible
 ansible:
-	cd ansible && TF_STATE=../terraform/terraform.tfstate ansible-playbook --inventory-file=$(INVENTORY_PATH) provision.yml
+	cd $(PLAYBOOK_DIR) && TF_STATE=../$(TERRAFORM_DIR)/terraform.tfstate ansible-playbook --inventory-file=$(INVENTORY_PATH) test.yml
 
 destroy:
-	cd terraform && terraform destroy
+	cd $(TERRAFORM_DIR) && terraform destroy
