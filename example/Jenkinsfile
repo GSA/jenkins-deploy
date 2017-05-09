@@ -7,6 +7,7 @@ pipeline {
     stage('Setup') {
       steps {
         git 'https://github.com/ansible/tower-example.git'
+        sh 'ansible --version'
       }
     }
 
