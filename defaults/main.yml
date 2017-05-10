@@ -3,7 +3,14 @@
 java_packages:
   - java-1.8.0-openjdk
 
-# https://plugins.jenkins.io/<ID>
+
+### Plugins ###
+
+# For more information on each plugin, visit
+#
+#   https://plugins.jenkins.io/<ID>
+#
+# Note that removing items from this list won't uninstall them.
 jenkins_plugins:
   - ansible
   - ansicolor
@@ -12,3 +19,6 @@ jenkins_plugins:
   - timestamper
   - workflow-aggregator
   - ws-cleanup
+
+# Use this variable if you want to append to the recommended `jenkins_plugins` above.
+additional_jenkins_plugins: []
