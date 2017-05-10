@@ -39,12 +39,17 @@ See [`defaults/main.yml`](defaults/main.yml).
 * [`geerlingguy.jenkins`](https://galaxy.ansible.com/geerlingguy/jenkins/)
 * [`geerlingguy.repo-epel`](https://galaxy.ansible.com/geerlingguy/repo-epel/)
 
-### Example playbook
+### Usage
 
 ```yaml
+# requirements.yml
+- src: https://github.com/GSA/jenkins-deploy
+  name: gsa.jenkins
+
+# playbook.yml
 - hosts: jenkins
   roles:
-    - jenkins
+    - gsa.jenkins
 ```
 
 ### License
