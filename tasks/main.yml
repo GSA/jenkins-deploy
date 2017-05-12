@@ -10,6 +10,10 @@
       - python
     state: latest
 
+- name: Install dependencies for Jenkins modules
+  pip:
+    name: python-jenkins
+
 # Handle the plugin installation ourselves, so that we can support appending to the default list. Code pulled from
 # https://github.com/geerlingguy/ansible-role-jenkins/pull/119
 - name: Install Jenkins plugins
@@ -24,10 +28,6 @@
 
 - name: Restart Jenkins, if necessary
   meta: flush_handlers
-
-- name: Install dependencies for Jenkins modules
-  pip:
-    name: python-jenkins
 
 # http://stackoverflow.com/a/34522653/358804
 - name: Wait for Jenkins to be available
