@@ -1,4 +1,11 @@
+# Ansible
 *.retry
-*.tfstate*
-*.tfvars
 secrets.yml
+
+## Terraform ##
+*.tfvars
+# Compiled files
+*.tfstate
+*.tfstate.backup
+# Module directory
+.terraform/
