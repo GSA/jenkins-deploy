@@ -43,8 +43,23 @@ galaxy_info:
     - cd
 
 dependencies:
+
   - role: geerlingguy.jenkins
     # handle the plugins ourselves - see `jenkins_plugin` use in tasks
     jenkins_plugins: []
+
   - role: geerlingguy.repo-epel
+
   - role: geerlingguy.nginx
+    nginx_remove_default_vhost: true
+    # use EPEL version
+    nginx_yum_repo_enabled: false
+    # https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+behind+an+NGinX+reverse+proxy#JenkinsbehindanNGinXreverseproxy-RunningfromasubdomainwithSSL
+    nginx_upstreams:
+      - name: jenkins
+        servers:
+          - 127.0.0.1:{{ jenkins_http_port }} fail_timeout=0
+    nginx_vhosts:
+      - server_name: "{{ jenkins_hostname }}"
+        # the default template doesn't work for us, so just manage our own
+        template: vhost.conf
