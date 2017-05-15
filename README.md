@@ -54,11 +54,14 @@ None.
 
 #### Role variables
 
-See [`defaults/main.yml`](defaults/main.yml).
+See [`defaults/main.yml`](defaults/main.yml). Required variables:
+
+* `jenkins_hostname`
 
 #### Dependencies
 
 * [`geerlingguy.jenkins`](https://galaxy.ansible.com/geerlingguy/jenkins/)
+* [`geerlingguy.nginx`](https://galaxy.ansible.com/geerlingguy/nginx/)
 * [`geerlingguy.repo-epel`](https://galaxy.ansible.com/geerlingguy/repo-epel/)
 
 #### Usage

@@ -1,4 +1,5 @@
 ---
-# should match what's in `dependencies` list of `../meta/main.yml`
+# gsa.jenkins role dependencies, which should match what's in `dependencies` list of `../meta/main.yml`
 - src: geerlingguy.jenkins
+- src: geerlingguy.nginx
 - src: geerlingguy.repo-epel

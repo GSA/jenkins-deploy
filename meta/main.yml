@@ -47,3 +47,4 @@ dependencies:
     # handle the plugins ourselves - see `jenkins_plugin` use in tasks
     jenkins_plugins: []
   - role: geerlingguy.repo-epel
+  - role: geerlingguy.nginx
