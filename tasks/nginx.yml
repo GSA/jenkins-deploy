@@ -1,0 +1,11 @@
+---
+- name: Check nginx redirects HTTP to HTTPS
+  uri:
+    url: http://localhost
+    follow_redirects: none
+    status_code: 301
+  register: http_req
+
+- name: Fail if HTTP doesn't redirect to HTTPS
+  fail:
+  when: http_req.location != 'https://localhost/'
