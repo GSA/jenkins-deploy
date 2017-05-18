@@ -1,0 +1,6 @@
+---
+# https://github.com/jdauphant/ansible-role-ssl-certs#examples
+ssl_certs_common_name: jenkins.test.com
+# match geerlingguy.nginx
+ssl_certs_path_owner: nginx
+ssl_certs_path_group: nginx

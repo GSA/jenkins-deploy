@@ -16,7 +16,6 @@ If you want to create a standalone Jenkins with the out-of-the-box configuration
 1. Create an Ansible secrets file.
 
     ```sh
-    mkdir -p tests/group_vars/all
     cp tests/secrets-example.yml tests/group_vars/all/secrets.yml
     # set values for the variables
     ```

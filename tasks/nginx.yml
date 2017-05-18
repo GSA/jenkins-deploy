@@ -1,11 +1,28 @@
 ---
+- name: Enable network connections between nginx and Jenkins
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+
 - name: Check nginx redirects HTTP to HTTPS
   uri:
     url: http://localhost
     follow_redirects: none
     status_code: 301
   register: http_req
-
 - name: Fail if HTTP doesn't redirect to HTTPS
   fail:
   when: http_req.location != 'https://localhost/'
+
+- name: Check Jenkins responds via HTTPS
+  uri:
+    url: https://localhost
+    follow_redirects: none
+    return_content: yes
+    # TODO find a way to have it use the test cert
+    validate_certs: no
+  register: https_req
+- name: Fail if HTTPS response isn't from Jenkins
+  fail:
+  when: "'Jenkins' not in https_req.content"

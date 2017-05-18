@@ -3,3 +3,6 @@
 - src: geerlingguy.jenkins
 - src: geerlingguy.nginx
 - src: geerlingguy.repo-epel
+
+# additional roles for test setup
+- src: jdauphant.ssl-certs
