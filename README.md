@@ -38,6 +38,7 @@ See [`defaults/main.yml`](defaults/main.yml).
 
 * [`geerlingguy.jenkins`](https://galaxy.ansible.com/geerlingguy/jenkins/)
 * [`geerlingguy.repo-epel`](https://galaxy.ansible.com/geerlingguy/repo-epel/)
+* [`williamyeh.oracle-java`](https://galaxy.ansible.com/williamyeh/oracle-java/)
 
 ### Usage
 

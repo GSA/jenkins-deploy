@@ -43,7 +43,12 @@ galaxy_info:
     - cd
 
 dependencies:
+  - role: williamyeh.oracle-java
+    java_remove_download: false
   - role: geerlingguy.jenkins
+    # use williamyeh.oracle-java instead
+    # https://github.com/geerlingguy/ansible-role-java/issues/42
+    java_packages: []
     # handle the plugins ourselves - see `jenkins_plugin` use in tasks
     jenkins_plugins: []
   - role: geerlingguy.repo-epel
