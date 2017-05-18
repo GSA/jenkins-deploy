@@ -3,8 +3,6 @@
 java_packages:
   - java-1.8.0-openjdk
 
-ssl_certificate_path: /etc/nginx/ssl/server.crt
-ssl_certificate_key_path: /etc/nginx/ssl/server.key
 
 ### Plugins ###
 

@@ -20,7 +20,7 @@
     url: https://localhost
     follow_redirects: none
     return_content: yes
-    # TODO find a way to have it use the test cert
+    # TODO have it use the test cert
     validate_certs: no
   register: https_req
 - name: Fail if HTTPS response isn't from Jenkins

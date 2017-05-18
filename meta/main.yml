@@ -48,6 +48,13 @@ dependencies:
     # handle the plugins ourselves - see `jenkins_plugin` use in tasks
     jenkins_plugins: []
 
+  - role: jdauphant.ssl-certs
+    ssl_certs_common_name: "{{ jenkins_hostname }}"
+    # match geerlingguy.nginx
+    # TODO make this dynamic
+    ssl_certs_path_owner: nginx
+    ssl_certs_path_group: nginx
+
   - role: geerlingguy.repo-epel
 
   - role: geerlingguy.nginx

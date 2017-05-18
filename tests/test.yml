@@ -4,12 +4,8 @@
   remote_user: ec2-user
   become: true
   roles:
-    - jdauphant.ssl-certs
     # needs to match repository name
-    - role: jenkins-deploy
-      # use paths from jdauphant.ssl-certs
-      ssl_certificate_path: "{{ ssl_certs_cert_path }}"
-      ssl_certificate_key_path: "{{ ssl_certs_privkey_path }}"
+    - jenkins-deploy
   tasks:
 
     - name: Set up pipeline

@@ -56,12 +56,14 @@ None.
 See [`defaults/main.yml`](defaults/main.yml). Required variables:
 
 * `jenkins_hostname`
+* SSL configuration - use variables for one of [these options](https://github.com/jdauphant/ansible-role-ssl-certs#examples)
 
 #### Dependencies
 
 * [`geerlingguy.jenkins`](https://galaxy.ansible.com/geerlingguy/jenkins/)
 * [`geerlingguy.nginx`](https://galaxy.ansible.com/geerlingguy/nginx/)
 * [`geerlingguy.repo-epel`](https://galaxy.ansible.com/geerlingguy/repo-epel/)
+* [`jdauphant.ssl-certs`](https://galaxy.ansible.com/jdauphant/ssl-certs/)
 
 #### Usage
 
