@@ -29,20 +29,22 @@ Simple! Just run `make`. Use `make destroy` to tear it down.
 
 ### Terraform modules
 
-The following [Terraform modules](https://www.terraform.io/docs/modules/index.html) are available for including in a larger deployment:
+To create the Jenkins infrastructure, include the [Terraform modules](https://www.terraform.io/docs/modules/index.html) alongside your existing Terraform code:
 
 ```hcl
-module "jenkins_with_security_groups" {
-  source = "./<path_to_ansible_role>/terraform/modules/standalone"
+# optional - use if you want a Jenkins-specific security group
+module "jenkins_networking" {
+  source = "./<path_to_ansible_role>/terraform/modules/networking"
 }
 
-# or
-
-module "jenkins_using_existing_security_group" {
+module "jenkins_instances" {
   source = "./<path_to_ansible_role>/terraform/modules/instances"
-  security_groups = ["${something}"]
+  # you can pass in a different security group name instead
+  security_groups = ["${module.jenkins_networking.sg_name}"]
 }
 ```
+
+See the variables files in the [`networking`](terraform/modules/networking/vars.tf) and [`instances`](terraform/modules/instances/vars.tf) modules for more options. [Overrides](https://www.terraform.io/docs/configuration/override.html) can also be used for greater customization.
 
 ### Ansible role
 

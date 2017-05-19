@@ -1,3 +1,3 @@
 output "ip" {
-  value = "${module.standalone.public_ip}"
+  value = "${module.instances.public_ip}"
 }

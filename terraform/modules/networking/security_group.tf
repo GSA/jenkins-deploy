@@ -33,8 +33,3 @@ resource "aws_security_group" "sg_jenkins" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
-module "instances" {
-  source = "../instances"
-  security_groups = ["${aws_security_group.sg_jenkins.name}"]
-}
