@@ -11,6 +11,7 @@ If you want to create a standalone Jenkins with the out-of-the-box configuration
 1. Install dependencies.
     * [Terraform](https://www.terraform.io/)
     * [Ansible](http://docs.ansible.com/ansible/intro_installation.html)
+    * [Terraform Inventory](https://github.com/adammck/terraform-inventory)
 1. [Configure Terraform.](https://www.terraform.io/docs/providers/aws/#authentication)
 1. Create an Ansible secrets file.
 
@@ -24,22 +25,41 @@ If you want to create a standalone Jenkins with the out-of-the-box configuration
 
 Simple! Just run `make`. Use `make destroy` to tear it down.
 
-## Ansible role
+## Reusable pieces
 
-### Requirements
+### Terraform modules
+
+The following [Terraform modules](https://www.terraform.io/docs/modules/index.html) are available for including in a larger deployment:
+
+```hcl
+module "jenkins_with_security_groups" {
+  source = "./<path_to_ansible_role>/terraform/modules/standalone"
+}
+
+# or
+
+module "jenkins_using_existing_security_group" {
+  source = "./<path_to_ansible_role>/terraform/modules/instances"
+  security_groups = ["${something}"]
+}
+```
+
+### Ansible role
+
+#### Requirements
 
 None.
 
-### Role variables
+#### Role variables
 
 See [`defaults/main.yml`](defaults/main.yml).
 
-### Dependencies
+#### Dependencies
 
 * [`geerlingguy.jenkins`](https://galaxy.ansible.com/geerlingguy/jenkins/)
 * [`geerlingguy.repo-epel`](https://galaxy.ansible.com/geerlingguy/repo-epel/)
 
-### Usage
+#### Usage
 
 ```yaml
 # requirements.yml
@@ -52,6 +72,6 @@ See [`defaults/main.yml`](defaults/main.yml).
     - gsa.jenkins
 ```
 
-### License
+## License
 
 CC0
