@@ -1,3 +1,3 @@
 output "ip" {
-  value = "${aws_instance.jenkins.public_ip}"
+  value = "${module.instances.public_ip}"
 }

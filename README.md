@@ -11,6 +11,7 @@ If you want to create a standalone Jenkins with the out-of-the-box configuration
 1. Install dependencies.
     * [Terraform](https://www.terraform.io/)
     * [Ansible](http://docs.ansible.com/ansible/intro_installation.html)
+    * [Terraform Inventory](https://github.com/adammck/terraform-inventory)
 1. [Configure Terraform.](https://www.terraform.io/docs/providers/aws/#authentication)
 1. Create an Ansible secrets file.
 
@@ -24,22 +25,43 @@ If you want to create a standalone Jenkins with the out-of-the-box configuration
 
 Simple! Just run `make`. Use `make destroy` to tear it down.
 
-## Ansible role
+## Reusable pieces
 
-### Requirements
+### Terraform modules
+
+To create the Jenkins infrastructure, include the [Terraform modules](https://www.terraform.io/docs/modules/index.html) alongside your existing Terraform code:
+
+```hcl
+# optional - use if you want a Jenkins-specific security group
+module "jenkins_networking" {
+  source = "./<path_to_ansible_role>/terraform/modules/networking"
+}
+
+module "jenkins_instances" {
+  source = "./<path_to_ansible_role>/terraform/modules/instances"
+  # you can pass in a different security group name instead
+  security_groups = ["${module.jenkins_networking.sg_name}"]
+}
+```
+
+See the variables files in the [`networking`](terraform/modules/networking/vars.tf) and [`instances`](terraform/modules/instances/vars.tf) modules for more options. [Overrides](https://www.terraform.io/docs/configuration/override.html) can also be used for greater customization.
+
+### Ansible role
+
+#### Requirements
 
 None.
 
-### Role variables
+#### Role variables
 
 See [`defaults/main.yml`](defaults/main.yml).
 
-### Dependencies
+#### Dependencies
 
 * [`geerlingguy.jenkins`](https://galaxy.ansible.com/geerlingguy/jenkins/)
 * [`geerlingguy.repo-epel`](https://galaxy.ansible.com/geerlingguy/repo-epel/)
 
-### Usage
+#### Usage
 
 ```yaml
 # requirements.yml
@@ -52,6 +74,6 @@ See [`defaults/main.yml`](defaults/main.yml).
     - gsa.jenkins
 ```
 
-### License
+## License
 
 CC0
