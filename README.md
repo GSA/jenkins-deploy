@@ -74,9 +74,9 @@ See [`defaults/main.yml`](defaults/main.yml).
     - gsa.jenkins
 ```
 
-#### Development
+## Development
 
-To test the Ansible role locally:
+To test locally:
 
 1. [Install Docker.](https://www.docker.com/community-edition#/download)
 1. Run the installation within a container.
