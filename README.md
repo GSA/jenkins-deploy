@@ -55,7 +55,6 @@ None.
 
 See [`defaults/main.yml`](defaults/main.yml). Required variables:
 
-* `jenkins_hostname`
 * SSL configuration - use variables for one of [these options](https://github.com/jdauphant/ansible-role-ssl-certs#examples)
 
 #### Dependencies

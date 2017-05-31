@@ -58,14 +58,9 @@ dependencies:
     nginx_upstreams:
       - name: jenkins
         servers:
-          - 127.0.0.1:{{ jenkins_http_port }} fail_timeout=0
-    nginx_vhosts:
-      - server_name: "{{ jenkins_hostname }}"
-        # the default template doesn't work for us, so just manage our own
-        template: vhost.conf
+          - "{{ jenkins_hostname }}:{{ jenkins_http_port }} fail_timeout=0"
 
   - role: jdauphant.ssl-certs
-    ssl_certs_common_name: "{{ jenkins_hostname }}"
     # match geerlingguy.nginx
     ssl_certs_path_owner: "{{ nginx_user }}"
-    ssl_certs_path_group: nginx
+    ssl_certs_path_group: "{{ nginx_user }}"
