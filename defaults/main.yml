@@ -1,11 +1,4 @@
 ---
-# https://github.com/geerlingguy/ansible-role-java#role-variables
-java_packages:
-  - java-1.8.0-openjdk
-
-
-### Plugins ###
-
 # For more information on each plugin, visit
 #
 #   https://plugins.jenkins.io/<ID>

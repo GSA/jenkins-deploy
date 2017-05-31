@@ -60,6 +60,8 @@ See [`defaults/main.yml`](defaults/main.yml).
 
 * [`geerlingguy.jenkins`](https://galaxy.ansible.com/geerlingguy/jenkins/)
 * [`geerlingguy.repo-epel`](https://galaxy.ansible.com/geerlingguy/repo-epel/)
+* [`williamyeh.oracle-java`](https://galaxy.ansible.com/williamyeh/oracle-java/)
+    * Using [a fork](https://github.com/gjedeer/ansible-oracle-java), due to [this issue](https://github.com/William-Yeh/ansible-oracle-java/issues/58)
 
 #### Usage
 

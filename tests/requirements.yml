@@ -2,3 +2,7 @@
 # should match what's in `dependencies` list of `../meta/main.yml`
 - src: geerlingguy.jenkins
 - src: geerlingguy.repo-epel
+- name: williamyeh.oracle-java
+  # https://github.com/William-Yeh/ansible-oracle-java/pull/60
+  src: https://github.com/gjedeer/ansible-oracle-java
+  version: "0463628"
