@@ -52,6 +52,7 @@ dependencies:
 
   - role: geerlingguy.nginx
     nginx_remove_default_vhost: true
+    nginx_server_tokens: "off"
     # use EPEL version
     nginx_yum_repo_enabled: false
     # https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+behind+an+NGinX+reverse+proxy#JenkinsbehindanNGinXreverseproxy-RunningfromasubdomainwithSSL
