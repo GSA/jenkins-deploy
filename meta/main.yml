@@ -61,6 +61,8 @@ dependencies:
           - "{{ jenkins_hostname }}:{{ jenkins_http_port }} fail_timeout=0"
 
   - role: jdauphant.ssl-certs
+    # need to specify both here and in `defaults/main.yml`, due to https://github.com/ansible/ansible/issues/17678
+    ssl_certs_common_name: "{{ jenkins_external_hostname }}"
     # match geerlingguy.nginx
     ssl_certs_path_owner: "{{ nginx_user }}"
     ssl_certs_path_group: "{{ nginx_user }}"
