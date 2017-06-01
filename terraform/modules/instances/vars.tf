@@ -13,8 +13,12 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
-variable "security_groups" {
+# networking
+variable "vpc_security_group_ids" {
   type = "list"
+}
+variable "subnet_id" {
+  type = "string"
 }
 
 variable "key_name" {
