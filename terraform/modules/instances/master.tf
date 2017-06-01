@@ -1,9 +1,10 @@
 resource "aws_instance" "jenkins" {
   instance_type = "${var.instance_type}"
-  # security_groups = ["${aws_security_group.sg_jenkins.name}"]
-  security_groups = ["${var.security_groups}"]
   ami = "${var.ami}"
   key_name = "${var.key_name}"
+
+  subnet_id = "${var.subnet_id}"
+  vpc_security_group_ids = ["${var.vpc_security_group_ids}"]
 
   # The connection block tells our provisioner how to
   # communicate with the resource (instance)

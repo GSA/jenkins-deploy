@@ -2,6 +2,8 @@ resource "aws_security_group" "sg_jenkins" {
   name = "${var.sg_name}"
   description = "Allows all traffic"
 
+  vpc_id = "${var.vpc_id}"
+
   # SSH
   ingress {
     from_port = 22

@@ -1,3 +1,7 @@
+variable "vpc_id" {
+  type = "string"
+}
+
 variable "sg_name" {
   default = "sg_jenkins"
   description = "Security group name"
