@@ -80,6 +80,17 @@ See [`defaults/main.yml`](defaults/main.yml).
     - gsa.jenkins
 ```
 
+## Development
+
+To test locally:
+
+1. [Install Docker.](https://www.docker.com/community-edition#/download)
+1. Run the installation within a container.
+
+    ```sh
+    make test
+    ```
+
 ## License
 
 CC0
