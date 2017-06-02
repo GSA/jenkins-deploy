@@ -1,4 +1,10 @@
 ---
+# need to specify both here and in `meta/main.yml`, due to https://github.com/ansible/ansible/issues/17678
+ssl_certs_common_name: "{{ jenkins_external_hostname }}"
+
+
+### Plugins ###
+
 # For more information on each plugin, visit
 #
 #   https://plugins.jenkins.io/<ID>

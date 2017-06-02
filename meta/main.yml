@@ -43,15 +43,36 @@ galaxy_info:
     - cd
 
 dependencies:
+
   - name: williamyeh.oracle-java
     # https://github.com/William-Yeh/ansible-oracle-java/pull/60
     src: https://github.com/gjedeer/ansible-oracle-java
     version: "0463628"
     java_remove_download: false
+
   - src: geerlingguy.jenkins
     # use williamyeh.oracle-java instead
     # https://github.com/geerlingguy/ansible-role-java/issues/42
     java_packages: []
     # handle the plugins ourselves - see `jenkins_plugin` use in tasks
     jenkins_plugins: []
-  - src: geerlingguy.repo-epel
+
+  - role: geerlingguy.repo-epel
+
+  - role: geerlingguy.nginx
+    nginx_remove_default_vhost: true
+    nginx_server_tokens: "off"
+    # use EPEL version
+    nginx_yum_repo_enabled: false
+    # https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+behind+an+NGinX+reverse+proxy#JenkinsbehindanNGinXreverseproxy-RunningfromasubdomainwithSSL
+    nginx_upstreams:
+      - name: jenkins
+        servers:
+          - "{{ jenkins_hostname }}:{{ jenkins_http_port }} fail_timeout=0"
+
+  - role: jdauphant.ssl-certs
+    # need to specify both here and in `defaults/main.yml`, due to https://github.com/ansible/ansible/issues/17678
+    ssl_certs_common_name: "{{ jenkins_external_hostname }}"
+    # match geerlingguy.nginx
+    ssl_certs_path_owner: "{{ nginx_user }}"
+    ssl_certs_path_group: "{{ nginx_user }}"

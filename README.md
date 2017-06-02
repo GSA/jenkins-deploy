@@ -16,7 +16,6 @@ If you want to create a standalone Jenkins with the out-of-the-box configuration
 1. Create an Ansible secrets file.
 
     ```sh
-    mkdir -p tests/group_vars/all
     cp tests/secrets-example.yml tests/group_vars/all/secrets.yml
     # set values for the variables
     ```
@@ -58,12 +57,18 @@ None.
 
 #### Role variables
 
-See [`defaults/main.yml`](defaults/main.yml).
+See [`defaults/main.yml`](defaults/main.yml). Required variables:
+
+* `jenkins_external_hostname`
+* [SSL configuration](https://github.com/jdauphant/ansible-role-ssl-certs#examples)
+    * Storing [key data](https://github.com/jdauphant/ansible-role-ssl-certs#example-to-deploy-a-ssl-certificate-stored-in-variables) in a [Vault](https://docs.ansible.com/ansible/playbooks_vault.html) is the recommended approach, though you can use the other options.
 
 #### Dependencies
 
 * [`geerlingguy.jenkins`](https://galaxy.ansible.com/geerlingguy/jenkins/)
+* [`geerlingguy.nginx`](https://galaxy.ansible.com/geerlingguy/nginx/)
 * [`geerlingguy.repo-epel`](https://galaxy.ansible.com/geerlingguy/repo-epel/)
+* [`jdauphant.ssl-certs`](https://galaxy.ansible.com/jdauphant/ssl-certs/)
 * [`williamyeh.oracle-java`](https://galaxy.ansible.com/williamyeh/oracle-java/)
     * Using [a fork](https://github.com/gjedeer/ansible-oracle-java), due to [this issue](https://github.com/William-Yeh/ansible-oracle-java/issues/58)
 

@@ -32,8 +32,15 @@
 # http://stackoverflow.com/a/34522653/358804
 - name: Wait for Jenkins to be available
   uri:
-    url: http://127.0.0.1:{{ jenkins_http_port }}
-  register: result
-  until: result.status == 200
+    url: http://{{ jenkins_hostname }}:{{ jenkins_http_port }}
+    return_content: true
+  register: jenkins_req
+  until: jenkins_req.status == 200
   retries: 60
   delay: 1
+
+- name: Fail if Jenkins not available
+  fail:
+  when: "'Jenkins' not in jenkins_req.content"
+
+- include: nginx.yml
