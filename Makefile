@@ -12,7 +12,7 @@ terraform:
 
 INVENTORY_PATH := $(shell which terraform-inventory)
 .PHONY: ansible
-ansible:
+ansible: install_roles
 	cd $(PLAYBOOK_DIR) && TF_STATE=../$(TERRAFORM_DIR)/terraform.tfstate ansible-playbook --inventory-file=$(INVENTORY_PATH) test.yml
 
 destroy:
