@@ -7,7 +7,7 @@
     - set_fact:
         jenkins_external_hostname: "{{ inventory_hostname }}"
   roles:
-    # needs to match repository name
+    # needs to match repository name; when the role is included normally, it will be `gsa.jenkins`
     - jenkins-deploy
   tasks:
 
