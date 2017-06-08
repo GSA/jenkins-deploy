@@ -28,7 +28,7 @@
   fail:
   when: http_req.location != 'https://localhost/'
 
-- name: Check Jenkins responds via HTTPS
+- name: Check nginx responds via HTTPS
   uri:
     url: https://localhost
     follow_redirects: none
