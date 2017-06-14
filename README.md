@@ -59,9 +59,10 @@ None.
 
 See [`defaults/main.yml`](defaults/main.yml). Required variables:
 
+* `jenkins_admin_password` - store in a [Vault](https://docs.ansible.com/ansible/playbooks_vault.html)
 * `jenkins_external_hostname`
 * [SSL configuration](https://github.com/jdauphant/ansible-role-ssl-certs#examples)
-    * Storing [key data](https://github.com/jdauphant/ansible-role-ssl-certs#example-to-deploy-a-ssl-certificate-stored-in-variables) in a [Vault](https://docs.ansible.com/ansible/playbooks_vault.html) is the recommended approach, though you can use the other options.
+    * Storing [key data](https://github.com/jdauphant/ansible-role-ssl-certs#example-to-deploy-a-ssl-certificate-stored-in-variables) in a Vault is the recommended approach, though you can use the other options.
 
 #### Dependencies
 
