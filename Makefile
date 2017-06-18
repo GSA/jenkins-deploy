@@ -23,14 +23,14 @@ validate_terraform:
 
 validate_ansible:
 	docker run \
-	  -it --privileged --rm \
+	  -it --rm \
 	  --volume=`pwd`:/etc/jenkins-deploy:ro --workdir /etc/jenkins-deploy/tests \
 	  geerlingguy/docker-centos7-ansible \
 	  ansible-playbook --syntax-check test.yml
 
 test_ansible:
 	docker run \
-	  -it --privileged --rm \
+	  -it --rm \
 	  --volume=`pwd`:/etc/jenkins-deploy:ro --workdir /etc/jenkins-deploy/tests \
 	  geerlingguy/docker-centos7-ansible \
 	  ansible-playbook test.yml
