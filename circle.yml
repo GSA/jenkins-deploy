@@ -6,6 +6,13 @@ machine:
   services:
     - docker
 dependencies:
+  pre:
+    # https://docs.ansible.com/ansible/intro_installation.html#latest-releases-via-apt-ubuntu
+    - sudo apt-get install -y software-properties-common
+    - sudo apt-add-repository -y ppa:ansible/ansible
+    - sudo apt-get -y update
+    - sudo apt-get install -y ansible
+    - make install_roles
   override:
     - |
       if [[ ! -f ~/.local/bin/terraform ]]; then
@@ -17,6 +24,7 @@ dependencies:
       fi
   cache_directories:
     - ~/.local/bin
+    - tests/roles
 test:
   override:
     - make test
