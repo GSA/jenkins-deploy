@@ -35,4 +35,5 @@ test_ansible:
 	  geerlingguy/docker-centos7-ansible \
 	  ansible-playbook test.yml
 
+# should correspond to test commands in circle.yml
 test: validate_terraform validate_ansible test_ansible
