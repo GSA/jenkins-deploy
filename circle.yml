@@ -1,12 +1,22 @@
 machine:
+  environment:
+    # https://github.com/knakayama/terraform-circleci-demo/blob/6ef7901b4fdb5570553080e74d297415ee06745f/circle.yml
+    TERRAFORM_VER: 0.9.8
+    PATH: $PATH:$HOME/.local/bin:$HOME/bin
   services:
     - docker
 dependencies:
-  pre:
-    - sudo apt-get install -y software-properties-common
-    - sudo apt-add-repository -y ppa:ansible/ansible
-    - sudo apt-get -y update
-    - sudo apt-get install -y ansible
+  override:
+    - |
+      if [[ ! -f ~/.local/bin/terraform ]]; then
+        mkdir -p ~/.local/bin
+        cd ~/.local/bin
+        wget "https://releases.hashicorp.com/terraform/${TERRAFORM_VER}/terraform_${TERRAFORM_VER}_linux_amd64.zip"
+        unzip *.zip
+        rm *.zip
+      fi
+  cache_directories:
+    - ~/.local/bin
 test:
   override:
-    - cd tests && ansible-playbook --syntax-check test.yml
+    - make test
