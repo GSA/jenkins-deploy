@@ -34,7 +34,7 @@ test:
     # need to run Ansible as separate process, so that systemd is started within the container
     - |
       docker run \
-        -d -it --privileged --rm --name $CONTAINER_NAME \
+        -d -it --privileged --name $CONTAINER_NAME \
         --volume=`pwd`:/etc/jenkins-deploy:ro \
         geerlingguy/docker-centos7-ansible
     - sleep 5
