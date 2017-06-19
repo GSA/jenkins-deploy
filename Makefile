@@ -35,5 +35,16 @@ test_ansible:
 	  geerlingguy/docker-centos7-ansible \
 	  ansible-playbook test.yml
 
+test_ansible_ci:
+	# need to run Ansible as separate process, so that systemd is started within the container
+	docker run \
+		-d -it --privileged --name ansible \
+		--volume=`pwd`:/etc/jenkins-deploy:ro \
+		geerlingguy/docker-centos7-ansible
+	sleep 3
+	# https://circleci.com/docs/1.0/docker/#docker-exec
+	sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" ansible)" -- bash -c \
+		"cd /etc/jenkins-deploy/tests && ansible-playbook --syntax-check test.yml"
+
 # should correspond to test commands in circle.yml
 test: validate_terraform validate_ansible test_ansible

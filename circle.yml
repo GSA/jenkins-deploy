@@ -31,14 +31,4 @@ test:
     # should correspond to test commands in Makefile
     - make validate_terraform
     - make validate_ansible
-    # need to run Ansible as separate process, so that systemd is started within the container
-    - |
-      docker run \
-        -d -it --privileged --name $CONTAINER_NAME \
-        --volume=`pwd`:/etc/jenkins-deploy:ro \
-        geerlingguy/docker-centos7-ansible
-    - sleep 5
-    # https://circleci.com/docs/1.0/docker/#docker-exec
-    - |
-      sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" $CONTAINER_NAME)" -- bash -c \
-        "cd /etc/jenkins-deploy/tests && ansible-playbook --syntax-check test.yml"
+    - make test_ansible_ci
