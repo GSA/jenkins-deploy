@@ -36,14 +36,17 @@ test_ansible:
 	  ansible-playbook test.yml
 
 test_ansible_ci:
-	# need to run Ansible as separate process, so that systemd is started within the container
+	# Need to run Ansible as separate process, so that systemd is started within the container. Create a random file to store the container ID.
+	# https://www.jeffgeerling.com/blog/2016/how-i-test-ansible-configuration-on-7-different-oses-docker
+	container_id=`mktemp`
 	docker run \
 		-d -it --privileged --name ansible \
 		--volume=`pwd`:/etc/jenkins-deploy:ro \
-		geerlingguy/docker-centos7-ansible
+		--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro \
+		geerlingguy/docker-centos7-ansible > $container_id
 	sleep 3
 	# https://circleci.com/docs/1.0/docker/#docker-exec
-	sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" ansible)" -- bash -c \
+	sudo lxc-attach -n $container_id -- bash -c \
 		"cd /etc/jenkins-deploy/tests && ansible-playbook --syntax-check test.yml"
 
 # should correspond to test commands in circle.yml
