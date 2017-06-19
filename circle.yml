@@ -31,4 +31,4 @@ test:
     # should correspond to test commands in Makefile
     - make validate_terraform
     - make validate_ansible
-    - make test_ansible_ci
+    - ./tests/run.sh
