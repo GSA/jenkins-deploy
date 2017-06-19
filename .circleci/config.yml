@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    working_directory: /etc/jenkins-deploy
+    docker:
+      # - image: williamyeh/ansible:centos7
+      - image: docker
+    # environment:
+    #   # https://github.com/knakayama/terraform-circleci-demo/blob/6ef7901b4fdb5570553080e74d297415ee06745f/circle.yml
+    #   TERRAFORM_VER: 0.9.8
+    #   PATH: $PATH:$HOME/.local/bin:$HOME/bin
+    steps:
+      - checkout
+      - setup_remote_docker
+      # - run:
+      #     name: Install dependencies
+      #     command: apk add --no-cache make
+      # - run:
+      #     name: Install roles
+      #     command: ansible-galaxy install -p roles -r requirements.yml
+      #     working_directory: /etc/jenkins-deploy/tests
+      # - run:
+      #     name: Validate Ansible
+      #     command: ansible-playbook --syntax-check test.yml
+      #     working_directory: /etc/jenkins-deploy/tests
+      - run:
+          name: Test Ansible
+          command: /etc/jenkins-deploy/tests/run.sh
+
+  # cache_directories:
+  #   - ~/.local/bin
+  #   - tests/roles
+# test:
+#   override:
+#     # should correspond to test commands in Makefile
+#     - make validate_terraform
+#     - make validate_ansible
+#     - ./tests/run.sh
