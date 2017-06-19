@@ -16,6 +16,7 @@ docker run \
   geerlingguy/docker-centos7-ansible > "${container_id}"
 
 sleep 3
+docker logs "$container_name"
 
 # https://circleci.com/docs/1.0/docker/#docker-exec
 sudo lxc-attach -n "$(cat ${container_id})" -- bash -c \
