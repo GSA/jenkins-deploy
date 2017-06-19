@@ -1,5 +1,6 @@
 TERRAFORM_DIR := terraform
 PLAYBOOK_DIR := tests
+CONTAINER_ID := $(shell mktemp)
 
 all: terraform ansible
 
@@ -38,15 +39,14 @@ test_ansible:
 test_ansible_ci:
 	# Need to run Ansible as separate process, so that systemd is started within the container. Create a random file to store the container ID.
 	# https://www.jeffgeerling.com/blog/2016/how-i-test-ansible-configuration-on-7-different-oses-docker
-	container_id=`mktemp`
 	docker run \
 		-d -it --privileged --name ansible \
 		--volume=`pwd`:/etc/jenkins-deploy:ro \
 		--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro \
-		geerlingguy/docker-centos7-ansible > $container_id
+		geerlingguy/docker-centos7-ansible > $(CONTAINER_ID)
 	sleep 3
 	# https://circleci.com/docs/1.0/docker/#docker-exec
-	sudo lxc-attach -n $container_id -- bash -c \
+	sudo lxc-attach -n $(shell cat $(CONTAINER_ID)) -- bash -c \
 		"cd /etc/jenkins-deploy/tests && ansible-playbook --syntax-check test.yml"
 
 # should correspond to test commands in circle.yml
