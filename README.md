@@ -85,6 +85,23 @@ See [`defaults/main.yml`](defaults/main.yml). Required variables:
     - gsa.jenkins
 ```
 
+#### Manual configuration
+
+The Ansible role will generate an SSH key for Jenkins to use when provisioning. You will need to Add Credentials in Jenkins manually.
+
+1. Visit https://JENKINS_URL/credentials/store/system/domain/_/newCredentials
+1. Fill in the form:
+    1. `Kind`: `SSH Username with private key`
+    1. `Scope`: `Global (Jenkins, nodes, items, all child items, etc)`
+    1. `Username`: `jenkins`
+    1. `Private Key`: `From the Jenkins master ~/.ssh`
+    1. `Passphrase`: (empty)
+    1. `ID`: `jenkins-ssh-key`
+    1. `Description`: (empty)
+1. Click `OK`.
+
+You can then use these Credentials from your Jobs.
+
 ## Development
 
 To test locally:

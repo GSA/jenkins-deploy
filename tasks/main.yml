@@ -44,3 +44,9 @@
   when: "'Jenkins' not in jenkins_req.content"
 
 - include: nginx.yml
+
+- name: Generate SSH key
+  user:
+    name: jenkins
+    generate_ssh_key: yes
+    ssh_key_bits: 4096
