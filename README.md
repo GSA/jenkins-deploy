@@ -57,11 +57,21 @@ None.
 
 #### Role variables
 
-See [`defaults/main.yml`](defaults/main.yml). Required variables:
+For any variables marked `sensitive`, you are strongly encouraged to store the values in an [Ansible Vault](https://docs.ansible.com/ansible/playbooks_vault.html).
+
+##### Required
 
 * `jenkins_external_hostname`
-* [SSL configuration](https://github.com/jdauphant/ansible-role-ssl-certs#examples)
-    * Storing [key data](https://github.com/jdauphant/ansible-role-ssl-certs#example-to-deploy-a-ssl-certificate-stored-in-variables) in a [Vault](https://docs.ansible.com/ansible/playbooks_vault.html) is the recommended approach, though you can use the other options.
+* SSH key - information about how to generate in [Usage](#usage) section below.
+    * `jenkins_ssh_key_passphrase` (sensitive)
+    * `jenkins_ssh_private_key_data` (sensitive)
+    * `jenkins_ssh_public_key_data`
+* [SSL configuration](https://github.com/jdauphant/ansible-role-ssl-certs#examples) (sensitive)
+    * The [key data](https://github.com/jdauphant/ansible-role-ssl-certs#example-to-deploy-a-ssl-certificate-stored-in-variables) approach is recommended.
+
+##### Optional
+
+See [`defaults/main.yml`](defaults/main.yml).
 
 #### Dependencies
 
@@ -74,33 +84,69 @@ See [`defaults/main.yml`](defaults/main.yml). Required variables:
 
 #### Usage
 
-```yaml
-# requirements.yml
-- src: https://github.com/GSA/jenkins-deploy
-  name: gsa.jenkins
+1. Generate an SSH key.
 
-# playbook.yml
-- hosts: jenkins
-  roles:
-    - gsa.jenkins
-```
+    ```sh
+    ssh-keygen -t rsa -b 4096 -f temp.key -C "group-email+jenkins@some.gov"
+    # enter a passphrase
 
-#### Manual configuration
+    cat temp.key
+    # store in Vault as jenkins_ssh_private_key_data
 
-The Ansible role will generate an SSH key for Jenkins to use when provisioning. You will need to Add Credentials in Jenkins manually.
+    cat temp.key.pub
+    # store in Vault as jenkins_ssh_public_key_data
 
-1. Visit https://JENKINS_URL/credentials/store/system/domain/_/newCredentials
-1. Fill in the form:
-    1. `Kind`: `SSH Username with private key`
-    1. `Scope`: `Global (Jenkins, nodes, items, all child items, etc)`
-    1. `Username`: `jenkins`
-    1. `Private Key`: `From the Jenkins master ~/.ssh`
-    1. `Passphrase`: (empty)
-    1. `ID`: `jenkins-ssh-key`
-    1. `Description`: (empty)
-1. Click `OK`.
+    rm temp.key*
+    ```
 
-You can then use these Credentials from your Jobs.
+1. Include the role and required variables. Example:
+
+    ```yaml
+    # requirements.yml
+    - src: https://github.com/GSA/jenkins-deploy
+      name: gsa.jenkins
+
+    # group_vars/jenkins/vars.yml
+    jenkins_external_hostname: ...
+    jenkins_ssh_key_passphrase: "{{ vault_jenkins_ssh_key_passphrase }}"
+    jenkins_ssh_private_key_data: "{{ vault_jenkins_ssh_private_key_data }}"
+    jenkins_ssh_public_key_data: |
+      ssh-rsa ... group-email+jenkins@some.gov
+
+    ssl_certs_local_cert_data: "{{ vault_ssl_certs_local_cert_data }}"
+    ssl_certs_local_privkey_data: "{{ vault_ssl_certs_local_privkey_data }}"
+
+    # group_vars/jenkins/vault.yml (encrypted)
+    vault_ssl_certs_local_cert_data: |
+      -----BEGIN CERTIFICATE-----
+      ...
+      -----END CERTIFICATE-----
+    vault_ssl_certs_local_privkey_data: |
+      -----BEGIN RSA PRIVATE KEY-----
+      ...
+      -----END RSA PRIVATE KEY-----
+
+    # playbook.yml
+    - hosts: jenkins
+      become: true
+      roles:
+        - gsa.jenkins
+    ```
+
+1. Run the Terraform (if applicable) and the playbook.
+1. Ensure you can log into Jenkins (at `jenkins_external_hostname`)
+1. Add the Credentials in Jenkins (manually).
+    1. Visit https://JENKINS_URL/credentials/store/system/domain/_/newCredentials
+    1. Fill in the form:
+        1. `Kind`: `SSH Username with private key`
+        1. `Scope`: `Global (Jenkins, nodes, items, all child items, etc)`
+        1. `Username`: `jenkins`
+        1. `Private Key`: `From the Jenkins master ~/.ssh`
+        1. `Passphrase`: (empty)
+        1. `ID`: `jenkins-ssh-key`
+        1. `Description`: (empty)
+    1. Click `OK`.
+    1.  Use these Credentials from your Jobs.
 
 ## Development
 
