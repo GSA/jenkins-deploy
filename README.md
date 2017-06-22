@@ -106,13 +106,15 @@ See [`defaults/main.yml`](defaults/main.yml).
     - src: https://github.com/GSA/jenkins-deploy
       name: gsa.jenkins
 
+    # group_vars/all/vars.yml
+    jenkins_ssh_user: jenkins
+    jenkins_ssh_public_key_data: |
+      ssh-rsa ... group-email+jenkins@some.gov
+
     # group_vars/jenkins/vars.yml
     jenkins_external_hostname: ...
     jenkins_ssh_key_passphrase: "{{ vault_jenkins_ssh_key_passphrase }}"
     jenkins_ssh_private_key_data: "{{ vault_jenkins_ssh_private_key_data }}"
-    jenkins_ssh_public_key_data: |
-      ssh-rsa ... group-email+jenkins@some.gov
-
     ssl_certs_local_cert_data: "{{ vault_ssl_certs_local_cert_data }}"
     ssl_certs_local_privkey_data: "{{ vault_ssl_certs_local_privkey_data }}"
 
@@ -126,17 +128,32 @@ See [`defaults/main.yml`](defaults/main.yml).
       ...
       -----END RSA PRIVATE KEY-----
 
-    # playbook.yml
+    # playbooks/jenkins.yml
     - hosts: jenkins
       become: true
       roles:
         - gsa.jenkins
+
+    # playbooks/other.yml
+    # hosts that Jenkins is going to run playbooks against
+    - hosts: other
+      become: true
+      tasks:
+        - name: Create Jenkins user
+          user:
+            name: "{{ jenkins_ssh_user }}"
+            group: wheel
+        - name: Create Jenkins user
+          authorized_key:
+            user: "{{ jenkins_ssh_user }}"
+            key: "{{ jenkins_ssh_public_key_data }}"
+        # ...other host setup tasks...
     ```
 
 1. Run the Terraform (if applicable) and the playbook.
-1. Ensure you can log into Jenkins (at `jenkins_external_hostname`)
+1. Ensure you can log into Jenkins (at `jenkins_external_hostname`).
 1. Add the Credentials in Jenkins (manually).
-    1. Visit https://JENKINS_URL/credentials/store/system/domain/_/newCredentials
+    1. Visit `https://JENKINS_EXTERNAL_HOSTNAME/credentials/store/system/domain/_/newCredentials`
     1. Fill in the form:
         1. `Kind`: `SSH Username with private key`
         1. `Scope`: `Global (Jenkins, nodes, items, all child items, etc)`
