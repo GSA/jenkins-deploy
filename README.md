@@ -88,13 +88,13 @@ See [`defaults/main.yml`](defaults/main.yml).
 
     ```sh
     ssh-keygen -t rsa -b 4096 -f temp.key -C "group-email+jenkins@some.gov"
-    # enter a passphrase
+    # enter a passphrase - store in Vault as vault_jenkins_ssh_key_passphrase
 
     cat temp.key
-    # store in Vault as jenkins_ssh_private_key_data
+    # store in Vault as vault_jenkins_ssh_private_key_data
 
     cat temp.key.pub
-    # store in Vault as jenkins_ssh_public_key_data
+    # store as jenkins_ssh_public_key_data
 
     rm temp.key*
     ```
@@ -119,6 +119,11 @@ See [`defaults/main.yml`](defaults/main.yml).
     ssl_certs_local_privkey_data: "{{ vault_ssl_certs_local_privkey_data }}"
 
     # group_vars/jenkins/vault.yml (encrypted)
+    vault_jenkins_ssh_key_passphrase: ...
+    vault_jenkins_ssh_private_key_data: |
+      -----BEGIN RSA PRIVATE KEY-----
+      ...
+      -----END RSA PRIVATE KEY-----
     vault_ssl_certs_local_cert_data: |
       -----BEGIN CERTIFICATE-----
       ...
@@ -143,7 +148,7 @@ See [`defaults/main.yml`](defaults/main.yml).
           user:
             name: "{{ jenkins_ssh_user }}"
             group: wheel
-        - name: Create Jenkins user
+        - name: Set up SSH key for Jenkins
           authorized_key:
             user: "{{ jenkins_ssh_user }}"
             key: "{{ jenkins_ssh_public_key_data }}"
@@ -159,7 +164,7 @@ See [`defaults/main.yml`](defaults/main.yml).
         1. `Scope`: `Global (Jenkins, nodes, items, all child items, etc)`
         1. `Username`: `jenkins`
         1. `Private Key`: `From the Jenkins master ~/.ssh`
-        1. `Passphrase`: (empty)
+        1. `Passphrase`: the value from `vault_jenkins_ssh_key_passphrase`
         1. `ID`: `jenkins-ssh-key`
         1. `Description`: (empty)
     1. Click `OK`.
