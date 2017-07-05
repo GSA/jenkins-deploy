@@ -6,6 +6,8 @@ resource "aws_instance" "jenkins" {
   subnet_id = "${var.subnet_id}"
   vpc_security_group_ids = ["${var.vpc_security_group_ids}"]
 
+  iam_instance_profile = "${var.iam_instance_profile}"
+
   # The connection block tells our provisioner how to
   # communicate with the resource (instance)
   connection {
