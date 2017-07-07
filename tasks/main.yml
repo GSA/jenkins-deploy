@@ -5,9 +5,6 @@
       - ansible
       - git
       - python2-pip
-      # needed for seboolean module
-      - libselinux-python
-      - libsemanage-python
       # need latest versions for installing Jenkins plugins - otherwise get a certificate error
       - ca-certificates
       - python
