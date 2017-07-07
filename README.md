@@ -86,6 +86,8 @@ See [`defaults/main.yml`](defaults/main.yml). Required variables:
     - gsa.jenkins
 ```
 
+When creating jobs/pipelines, don't include any spaces or special characters in the name, as this can break things in confusing ways.
+
 ## Development
 
 To test locally:
