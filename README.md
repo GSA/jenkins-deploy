@@ -86,6 +86,8 @@ See [`defaults/main.yml`](defaults/main.yml). Required variables:
     - gsa.jenkins
 ```
 
+You are also strongly encouraged to subscribe to [Jenkins security advisories](https://jenkins.io/security/).
+
 ## Development
 
 To test locally:
