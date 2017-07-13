@@ -1,13 +1,7 @@
 ---
 # gsa.jenkins role dependencies, which should match what's in `dependencies` list of `../meta/main.yml`.
-
-# This needs to be before geerlingguy.jenkins, so that the canonical williamyeh.oracle-java isn't installed first.
-- name: williamyeh.oracle-java
-  # https://github.com/William-Yeh/ansible-oracle-java/pull/60
-  src: https://github.com/gjedeer/ansible-oracle-java
-  version: "0463628b1079c5c41930fe8b1ee26a7f617a0f76"
-
 - src: geerlingguy.jenkins
 - src: geerlingguy.nginx
 - src: geerlingguy.repo-epel
 - src: jdauphant.ssl-certs
+- src: srsp.oracle-java
