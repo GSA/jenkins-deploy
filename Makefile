@@ -4,7 +4,7 @@ PLAYBOOK_DIR := tests
 all: terraform ansible
 
 install_roles:
-	cd $(PLAYBOOK_DIR) && ansible-galaxy install -p roles -r requirements.yml
+	cd $(PLAYBOOK_DIR) && ansible-galaxy install -r requirements.yml
 
 .PHONY: terraform
 terraform:
