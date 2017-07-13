@@ -1,4 +1,4 @@
-# Jenkins Bootstrap
+# Jenkins Bootstrap [![CircleCI](https://circleci.com/gh/GSA/jenkins-deploy.svg?style=svg)](https://circleci.com/gh/GSA/jenkins-deploy)
 
 This repository is reusable deployment code/configuration of Jenkins, which gets you up and running with a production-grade Jenkins quickly.
 
