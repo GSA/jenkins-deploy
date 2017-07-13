@@ -18,9 +18,15 @@ ansible: install_roles
 destroy:
 	cd $(TERRAFORM_DIR) && terraform destroy
 
-test:
-	cd terraform && terraform validate
-	cd tests && ansible-playbook --syntax-check test.yml
+validate_terraform:
+	cd $(TERRAFORM_DIR) && terraform validate
+
+validate_ansible:
+	cd $(PLAYBOOK_DIR) && ansible-playbook --syntax-check test.yml
+
+validate: validate_terraform validate_ansible
+
+test: validate
 	docker run \
 	  -it --privileged --rm \
 	  --volume=`pwd`:/etc/jenkins-deploy:ro --workdir /etc/jenkins-deploy/tests \
