@@ -20,6 +20,8 @@ jenkins_plugins:
   - ansicolor
   - blueocean
   - github
+  - pipeline-utility-steps
+  - ssh-agent
   - timestamper
   - workflow-aggregator
   - ws-cleanup
