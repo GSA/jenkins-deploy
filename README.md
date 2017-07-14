@@ -1,4 +1,4 @@
-# Jenkins Bootstrap
+# Jenkins Bootstrap [![CircleCI](https://circleci.com/gh/GSA/jenkins-deploy.svg?style=svg)](https://circleci.com/gh/GSA/jenkins-deploy)
 
 This repository is reusable deployment code/configuration of Jenkins, which gets you up and running with a production-grade Jenkins quickly.
 
@@ -70,8 +70,7 @@ See [`defaults/main.yml`](defaults/main.yml). Required variables:
 * [`geerlingguy.nginx`](https://galaxy.ansible.com/geerlingguy/nginx/)
 * [`geerlingguy.repo-epel`](https://galaxy.ansible.com/geerlingguy/repo-epel/)
 * [`jdauphant.ssl-certs`](https://galaxy.ansible.com/jdauphant/ssl-certs/)
-* [`williamyeh.oracle-java`](https://galaxy.ansible.com/williamyeh/oracle-java/)
-    * Using [a fork](https://github.com/gjedeer/ansible-oracle-java), due to [this issue](https://github.com/William-Yeh/ansible-oracle-java/issues/58)
+* [`srsp.oracle-java`](https://galaxy.ansible.com/srsp/oracle-java/)
 
 #### Usage
 

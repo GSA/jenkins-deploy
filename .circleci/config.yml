@@ -1,0 +1,35 @@
+version: 2
+jobs:
+  validate_ansible:
+    working_directory: /etc/jenkins-deploy
+    docker:
+      - image: williamyeh/ansible:alpine3
+    steps:
+      - checkout
+      - run:
+          name: Install Make
+          command: apk add --update make
+      - run:
+          name: Install Ansible roles
+          command: make install_roles
+      - run:
+          name: Check Ansible syntax
+          command: make validate_ansible
+  validate_terraform:
+    working_directory: /etc/jenkins-deploy
+    docker:
+      - image: hashicorp/terraform
+    steps:
+      - checkout
+      - run:
+          name: Install Make
+          command: apk add --update make
+      - run:
+          name: Check Terraform syntax
+          command: make validate_terraform
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - validate_ansible
+      - validate_terraform
