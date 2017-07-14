@@ -44,3 +44,4 @@
   when: "'Jenkins' not in jenkins_req.content"
 
 - include: nginx.yml
+- include: ssh.yml

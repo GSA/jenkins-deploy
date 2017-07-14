@@ -6,6 +6,7 @@ ssl_certs_common_name: "{{ jenkins_external_hostname }}"
 # https://nginx.org/en/docs/http/server_names.html
 server_names: "{{ jenkins_external_hostname }}"
 
+jenkins_ssh_user: jenkins
 
 ### Plugins ###
 
