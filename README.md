@@ -171,6 +171,8 @@ See [`defaults/main.yml`](defaults/main.yml).
     1. Click `OK`.
     1.  Use these Credentials from your Jobs.
 
+You are also strongly encouraged to subscribe to [Jenkins security advisories](https://jenkins.io/security/).
+
 ## Development
 
 To test locally:
