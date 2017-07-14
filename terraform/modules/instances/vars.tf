@@ -13,6 +13,10 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
+variable "iam_instance_profile" {
+  default = ""
+}
+
 # networking
 variable "vpc_security_group_ids" {
   type = "list"

@@ -1,10 +1,7 @@
 ---
-# gsa.jenkins role dependencies, which should match what's in `dependencies` list of `../meta/main.yml`
+# gsa.jenkins role dependencies, which should match what's in `dependencies` list of `../meta/main.yml`.
 - src: geerlingguy.jenkins
 - src: geerlingguy.nginx
 - src: geerlingguy.repo-epel
 - src: jdauphant.ssl-certs
-- name: williamyeh.oracle-java
-  # https://github.com/William-Yeh/ansible-oracle-java/pull/60
-  src: https://github.com/gjedeer/ansible-oracle-java
-  version: "0463628"
+- src: srsp.oracle-java
