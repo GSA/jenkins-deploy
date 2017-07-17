@@ -20,7 +20,7 @@
 
 - name: Check nginx redirects HTTP to HTTPS
   uri:
-    url: http://{{ jenkins_hostname }}{{ jenkins_url_prefix }}
+    url: http://{{ jenkins_hostname }}{{ jenkins_url_prefix }}{{ jenkins_health_check_path }}
     follow_redirects: none
     status_code: 301
   register: http_req
