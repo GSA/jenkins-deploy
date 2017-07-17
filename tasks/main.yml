@@ -22,7 +22,7 @@
     params:
       url_username: "{{ jenkins_admin_username }}"
       url_password: "{{ jenkins_admin_password }}"
-    url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}"
+    url: http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}
   with_items: "{{ jenkins_plugins + additional_jenkins_plugins }}"
   notify: restart jenkins
 
@@ -32,7 +32,7 @@
 # http://stackoverflow.com/a/34522653/358804
 - name: Wait for Jenkins to be available
   uri:
-    url: http://{{ jenkins_hostname }}:{{ jenkins_http_port }}
+    url: http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}
     return_content: true
   register: jenkins_req
   until: jenkins_req.status == 200
