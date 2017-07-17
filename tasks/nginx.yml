@@ -20,17 +20,17 @@
 
 - name: Check nginx redirects HTTP to HTTPS
   uri:
-    url: http://localhost
+    url: http://{{ jenkins_hostname }}{{ jenkins_url_prefix }}{{ jenkins_health_check_path }}
     follow_redirects: none
     status_code: 301
   register: http_req
 - name: Fail if HTTP doesn't redirect to HTTPS
   fail:
-  when: http_req.location != 'https://localhost/'
+  when: not http_req.location.startswith('https://' + jenkins_hostname)
 
 - name: Check nginx responds via HTTPS
   uri:
-    url: https://localhost
+    url: https://localhost{{ jenkins_url_prefix }}
     follow_redirects: none
     return_content: yes
     # TODO have it use the test cert

@@ -2,6 +2,8 @@
 # need to specify both here and in `meta/main.yml`, due to https://github.com/ansible/ansible/issues/17678
 ssl_certs_common_name: "{{ jenkins_external_hostname }}"
 
+# the homepage may not be accessible if anonymous users don't have read permissions, so check the login page
+jenkins_health_check_path: /login
 # a space-delimited list of server names that nginx should respond to
 # https://nginx.org/en/docs/http/server_names.html
 server_names: "{{ jenkins_external_hostname }}"
