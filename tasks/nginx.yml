@@ -30,7 +30,7 @@
 
 - name: Check nginx responds via HTTPS
   uri:
-    url: https://localhost{{ jenkins_url_prefix }}
+    url: https://localhost{{ jenkins_url_prefix }}{{ jenkins_health_check_path }}
     follow_redirects: none
     return_content: yes
     # TODO have it use the test cert
