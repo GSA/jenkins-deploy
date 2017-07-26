@@ -4,50 +4,13 @@ This repository is reusable deployment code/configuration of Jenkins, which gets
 
 ## Integration
 
-If you want to create a standalone Jenkins with the out-of-the-box configuration provided in this repository, do the following:
-
-### Setup
-
-1. Install dependencies.
-    * [Terraform](https://www.terraform.io/)
-    * [Ansible](http://docs.ansible.com/ansible/intro_installation.html)
-    * [Terraform Inventory](https://github.com/adammck/terraform-inventory)
-1. [Configure Terraform.](https://www.terraform.io/docs/providers/aws/#authentication)
-1. Create an Ansible secrets file.
-
-    ```sh
-    cp tests/secrets-example.yml tests/group_vars/all/secrets.yml
-    # set values for the variables
-    ```
-
-### Usage
-
-Simple! Just run `make`. Use `make destroy` to tear it down.
+See [the documentation](docs/integration.md).
 
 ## Reusable pieces
 
 ### Terraform modules
 
-To create the Jenkins infrastructure, include the [Terraform modules](https://www.terraform.io/docs/modules/index.html) alongside your existing Terraform code:
-
-```hcl
-# optional - use if you want a Jenkins-specific security group
-module "jenkins_networking" {
-  source = "./<path_to_ansible_role>/terraform/modules/networking"
-
-  vpc_id = "${<vpc_id>}"
-}
-
-module "jenkins_instances" {
-  source = "./<path_to_ansible_role>/terraform/modules/instances"
-
-  subnet_id = "${<subnet_id}"
-  # you can pass in a different security group name instead
-  vpc_security_group_ids = ["${module.jenkins_networking.sg_id}"]
-}
-```
-
-See the variables files in the [`networking`](terraform/modules/networking/vars.tf) and [`instances`](terraform/modules/instances/vars.tf) modules for more options. See the [example usage](terraform/aws.tf).
+See [the documentation](docs/terraform.md).
 
 ### Ansible role
 
@@ -156,33 +119,7 @@ See [`defaults/main.yml`](defaults/main.yml).
 
 1. Run the Terraform (if applicable) and the playbook.
 1. Ensure you can log into Jenkins (at `jenkins_external_hostname`).
-1. Add the Credentials in Jenkins (manually).
-    1. Visit `https://JENKINS_EXTERNAL_HOSTNAME/credentials/store/system/domain/_/newCredentials`
-    1. Fill in the form:
-        1. `Kind`: `SSH Username with private key`
-        1. `Scope`: `Global (Jenkins, nodes, items, all child items, etc)`
-        1. `Username`: `jenkins`
-        1. `Private Key`: `From the Jenkins master ~/.ssh`
-        1. `Passphrase`: the value from `vault_jenkins_ssh_key_passphrase`
-        1. `ID`: `jenkins-ssh-key`
-        1. `Description`: (empty)
-    1. Click `OK`.
-    1.  Use these Credentials from your Jobs.
-
-You are also strongly encouraged to subscribe to [Jenkins security advisories](https://jenkins.io/security/).
-
-When creating jobs/pipelines, don't include any spaces or special characters in the name, as this can break things in confusing ways.
-
-## Development
-
-To test locally:
-
-1. [Install the CircleCI CLI.](https://circleci.com/docs/2.0/local-jobs/#installing-the-cli-locally)
-1. Run the tests.
-
-    ```sh
-    make test
-    ```
+1. Follow the [manual configuration steps](docs/manual_config.md)
 
 ## License
 
