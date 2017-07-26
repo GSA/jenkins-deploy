@@ -50,3 +50,6 @@ For each user:
 
 * Subscribe to [Jenkins security advisories](https://jenkins.io/security/).
 * When creating jobs/pipelines, don't include any spaces or special characters in the name, as this can break things in confusing ways.
+* Make sure to do cleanup, to prevent disk space from filling up.
+    * [Discard old builds](https://jenkins.io/doc/book/pipeline/syntax/#available-options)
+    * [Remove the workspace](https://jenkins.io/doc/pipeline/tour/post/#cleaning-up-and-notifications)
