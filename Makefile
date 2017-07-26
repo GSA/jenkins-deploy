@@ -1,5 +1,6 @@
 TERRAFORM_DIR := terraform
 PLAYBOOK_DIR := tests
+SSH_USER := ec2-user
 
 all: terraform ansible
 
@@ -13,7 +14,7 @@ terraform:
 INVENTORY_PATH := $(shell which terraform-inventory)
 .PHONY: ansible
 ansible: install_roles
-	cd $(PLAYBOOK_DIR) && TF_STATE=../$(TERRAFORM_DIR)/terraform.tfstate ansible-playbook --inventory-file=$(INVENTORY_PATH) --become --user=ec2-user test.yml
+	cd $(PLAYBOOK_DIR) && TF_STATE=../$(TERRAFORM_DIR)/terraform.tfstate ansible-playbook --inventory-file=$(INVENTORY_PATH) --become --user=$(SSH_USER) test.yml
 
 destroy:
 	cd $(TERRAFORM_DIR) && terraform destroy
