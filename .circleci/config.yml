@@ -14,7 +14,7 @@ jobs:
           command: docker run -it --privileged -d --name remote centos/systemd
       - run:
           name: Install packages
-          command: apk add --update-cache ansible make
+          command: apk add --update-cache ansible make git
       - run:
           name: Install Ansible roles
           command: make install_roles
