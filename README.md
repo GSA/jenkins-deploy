@@ -179,8 +179,8 @@ When creating jobs/pipelines, don't include any spaces or special characters in 
 
 To test locally:
 
-1. [Install Docker.](https://www.docker.com/community-edition#/download)
-1. Run the installation within a container.
+1. [Install the CircleCI CLI.](https://circleci.com/docs/2.0/local-jobs/#installing-the-cli-locally)
+1. Run the tests.
 
     ```sh
     make test
