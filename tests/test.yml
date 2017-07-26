@@ -11,6 +11,10 @@
     - jenkins-deploy
   tasks:
 
+    - name: Install jenkins_job dependencies
+      yum:
+        name: python-lxml
+
     - name: Set up pipeline
       jenkins_job:
         config: "{{ lookup('file', 'files/job.xml') }}"
