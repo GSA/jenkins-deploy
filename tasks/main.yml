@@ -5,9 +5,6 @@
       - ansible
       - git
       - python2-pip
-      # needed for seboolean module
-      - libselinux-python
-      - libsemanage-python
       # need latest versions for installing Jenkins plugins - otherwise get a certificate error
       - ca-certificates
       - python
@@ -17,7 +14,7 @@
   pip:
     name: python-jenkins
 
-# Handle the plugin installation ourselves, so that we can support appending to the default list. Code pulled from
+# We handle the plugin installation ourselves, so that we can support appending to the default list. Code pulled from
 # https://github.com/geerlingguy/ansible-role-jenkins/pull/119
 - name: Install Jenkins plugins
   jenkins_plugin:
@@ -26,6 +23,8 @@
       url_username: "{{ jenkins_admin_username }}"
       url_password: "{{ jenkins_admin_password }}"
     url: http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}
+    # some of the plugins are large, so give them extra time
+    timeout: 90
   with_items: "{{ jenkins_plugins + additional_jenkins_plugins }}"
   notify: restart jenkins
 

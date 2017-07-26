@@ -78,9 +78,7 @@ See [`defaults/main.yml`](defaults/main.yml).
 #### Dependencies
 
 * [`geerlingguy.jenkins`](https://galaxy.ansible.com/geerlingguy/jenkins/)
-* [`geerlingguy.nginx`](https://galaxy.ansible.com/geerlingguy/nginx/)
-* [`geerlingguy.repo-epel`](https://galaxy.ansible.com/geerlingguy/repo-epel/)
-* [`jdauphant.ssl-certs`](https://galaxy.ansible.com/jdauphant/ssl-certs/)
+* [`gsa.https-proxy`](https://github.com/GSA/ansible-https-proxy)
 * [`srsp.oracle-java`](https://galaxy.ansible.com/srsp/oracle-java/)
 
 #### Usage
