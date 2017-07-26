@@ -17,6 +17,7 @@ jenkins_plugins:
   - blueocean
   - github
   - pipeline-utility-steps
+  - role-strategy
   - ssh-agent
   - timestamper
   - workflow-aggregator
