@@ -12,15 +12,22 @@ jobs:
             docker run \
               -it --privileged -d \
               --name remote \
-              --volume /etc/jenkins-deploy --workdir /etc/jenkins-deploy \
+              --volume /etc/jenkins-deploy --workdir /etc/jenkins-deploy/tests \
               geerlingguy/docker-centos7-ansible
       # https://circleci.com/docs/2.0/building-docker-images/#mounting-folders
       - run:
           name: Copy local files
           command: docker cp . remote:/etc/jenkins-deploy
       - run:
-          name: Run tests
-          command: docker exec -it remote ./.circleci/run.sh
+          name: Install Ansible roles
+          command: |
+            docker exec -it remote \
+              ansible-galaxy install -r requirements.yml
+      - run:
+          name: Run Ansible playbook
+          command: |
+            docker exec -it remote \
+              ansible-playbook test.yml
   validate_terraform:
     working_directory: /etc/jenkins-deploy
     docker:
