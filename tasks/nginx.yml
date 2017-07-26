@@ -4,6 +4,8 @@
     name: httpd_can_network_connect
     state: yes
     persistent: yes
+  # https://github.com/ansible/ansible/issues/18692
+  when: ansible_selinux is defined and ansible_selinux != False and ansible_selinux.status == 'enabled'
 
 # manage our own vhost file, because a) the template doesn't work for us, and b) we can use variables from `jdauphant.ssl-certs`
 - name: Add vhost config file

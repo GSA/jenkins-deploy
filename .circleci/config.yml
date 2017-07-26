@@ -1,20 +1,33 @@
 version: 2
 jobs:
-  validate_ansible:
-    working_directory: /etc/jenkins-deploy
+  build:
     docker:
-      - image: williamyeh/ansible:alpine3
+      - image: docker
     steps:
       - checkout
+      - setup_remote_docker
       - run:
-          name: Install Make
-          command: apk add --update make
+          name: Start remote container
+          command: |
+            docker run \
+              -it --privileged -d \
+              --name remote \
+              --volume /etc/jenkins-deploy --workdir /etc/jenkins-deploy/tests \
+              geerlingguy/docker-centos7-ansible
+      # https://circleci.com/docs/2.0/building-docker-images/#mounting-folders
+      - run:
+          name: Copy local files
+          command: docker cp . remote:/etc/jenkins-deploy
       - run:
           name: Install Ansible roles
-          command: make install_roles
+          command: |
+            docker exec -it remote \
+              ansible-galaxy install -r requirements.yml
       - run:
-          name: Check Ansible syntax
-          command: make validate_ansible
+          name: Run Ansible playbook
+          command: |
+            docker exec -it remote \
+              ansible-playbook test.yml
   validate_terraform:
     working_directory: /etc/jenkins-deploy
     docker:
@@ -31,5 +44,5 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - validate_ansible
+      - build
       - validate_terraform
