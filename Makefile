@@ -27,6 +27,9 @@ validate_ansible:
 
 validate: validate_terraform validate_ansible
 
+start_container:
+	docker run -it --privileged -d --name remote centos/systemd
+
 test_ci:
 	cd $(PLAYBOOK_DIR) && ansible-playbook -i hosts-docker test.yml
 
