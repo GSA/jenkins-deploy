@@ -2,4 +2,4 @@
 # gsa.jenkins role dependencies, which should match what's in `dependencies` list of `../meta/main.yml`.
 - src: geerlingguy.jenkins
 - src: srsp.oracle-java
-- src: https://github.com/GSA/ansible-https-proxy
+- src: gsa.ansible-https-proxy
