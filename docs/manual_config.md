@@ -9,6 +9,16 @@ The following steps need to be done by hand.
 1. Create a `developer` role with all but the `Agent` and `SCM` options.
 1. Assign the role by adding a `group` called `authenticated`, selecting the `developer` checkbox.
 
+### Audit trail
+
+1. Click `Manage Jenkins`.
+1. Click `Configure System`.
+1. Under `Audit Trail`, click `Add Logger`, then `Log file`.
+1. For `Log Location`, enter `/var/log/jenkins/audit.log`.
+1. For `Log File Size`, enter `50` MB.
+1. For `Log File Count`, enter `10`.
+1. Click `Save`.
+
 ## Credentials
 
 1. Visit `https://JENKINS_EXTERNAL_HOSTNAME/credentials/store/system/domain/_/newCredentials`

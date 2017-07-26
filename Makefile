@@ -36,6 +36,6 @@ test_ci:
 test:
 	circleci build --job validate_terraform
 	# CircleCI CLI doesn't clean up remote containers
-	docker rm -f remote
+	docker rm -f remote || true
 	circleci build
 	docker rm -f remote
