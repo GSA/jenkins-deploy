@@ -14,6 +14,11 @@ jobs:
               --name remote \
               --volume /etc/jenkins-deploy --workdir /etc/jenkins-deploy/tests \
               geerlingguy/docker-centos7-ansible
+      - run:
+          name: Install yum packages
+          command: |
+            docker exec -it remote \
+              yum install -y git
       # https://circleci.com/docs/2.0/building-docker-images/#mounting-folders
       - run:
           name: Copy local files
