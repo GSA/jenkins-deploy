@@ -1,0 +1,1 @@
+remote ansible_connection=docker

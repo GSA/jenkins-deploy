@@ -1,6 +1,9 @@
 version: 2
 jobs:
   build:
+    # Needs to match repository name; when the role is included normally, it will be `gsa.jenkins`. Also, needs to be an absolute path due to
+    # https://circleci.com/docs/2.0/local-jobs/#relative-path-for-working_directory
+    working_directory: /etc/jenkins-deploy
     docker:
       - image: docker
     steps:
@@ -8,31 +11,16 @@ jobs:
       - setup_remote_docker
       - run:
           name: Start remote container
-          command: |
-            docker run \
-              -it --privileged -d \
-              --name remote \
-              --volume /etc/jenkins-deploy --workdir /etc/jenkins-deploy/tests \
-              geerlingguy/docker-centos7-ansible
+          command: docker run -it --privileged -d --name remote centos/systemd
       - run:
-          name: Install yum packages
-          command: |
-            docker exec -it remote \
-              yum install -y git
-      # https://circleci.com/docs/2.0/building-docker-images/#mounting-folders
-      - run:
-          name: Copy local files
-          command: docker cp . remote:/etc/jenkins-deploy
+          name: Install packages
+          command: apk add --update-cache ansible make git
       - run:
           name: Install Ansible roles
-          command: |
-            docker exec -it remote \
-              ansible-galaxy install -r requirements.yml
+          command: make install_roles
       - run:
           name: Run Ansible playbook
-          command: |
-            docker exec -it remote \
-              ansible-playbook test.yml
+          command: make test_ci
   validate_terraform:
     working_directory: /etc/jenkins-deploy
     docker:

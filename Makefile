@@ -1,5 +1,6 @@
 TERRAFORM_DIR := terraform
 PLAYBOOK_DIR := tests
+SSH_USER := ec2-user
 
 all: terraform ansible
 
@@ -13,7 +14,7 @@ terraform:
 INVENTORY_PATH := $(shell which terraform-inventory)
 .PHONY: ansible
 ansible: install_roles
-	cd $(PLAYBOOK_DIR) && TF_STATE=../$(TERRAFORM_DIR)/terraform.tfstate ansible-playbook --inventory-file=$(INVENTORY_PATH) test.yml
+	cd $(PLAYBOOK_DIR) && TF_STATE=../$(TERRAFORM_DIR)/terraform.tfstate ansible-playbook --inventory-file=$(INVENTORY_PATH) --become --user=$(SSH_USER) test.yml
 
 destroy:
 	cd $(TERRAFORM_DIR) && terraform destroy
@@ -26,9 +27,12 @@ validate_ansible:
 
 validate: validate_terraform validate_ansible
 
-test: validate
-	docker run \
-	  -it --privileged --rm \
-	  --volume=`pwd`:/etc/jenkins-deploy:ro --workdir /etc/jenkins-deploy/tests \
-	  geerlingguy/docker-centos7-ansible \
-	  ansible-playbook test.yml
+test_ci:
+	cd $(PLAYBOOK_DIR) && ansible-playbook -i hosts-docker test.yml
+
+test:
+	circleci build --job validate_terraform
+	# CircleCI CLI doesn't clean up remote containers
+	docker rm -f remote
+	circleci build
+	docker rm -f remote
