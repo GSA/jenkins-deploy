@@ -14,7 +14,7 @@
   pip:
     name: python-jenkins
 
-# Handle the plugin installation ourselves, so that we can support appending to the default list. Code pulled from
+# We handle the plugin installation ourselves, so that we can support appending to the default list. Code pulled from
 # https://github.com/geerlingguy/ansible-role-jenkins/pull/119
 - name: Install Jenkins plugins
   jenkins_plugin:
