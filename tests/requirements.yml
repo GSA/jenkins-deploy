@@ -3,5 +3,3 @@
 - src: geerlingguy.jenkins
 - src: srsp.oracle-java
 - src: https://github.com/GSA/ansible-https-proxy
-  version: master
-  name: gsa.ansible-https-proxy
