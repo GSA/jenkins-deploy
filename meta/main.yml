@@ -55,6 +55,6 @@ dependencies:
     jenkins_plugins: []
 
   - src: https://github.com/GSA/ansible-https-proxy
-    name: gsa.ansible-https-proxy
+    name: gsa.https-proxy
     external_hostname: "{{ jenkins_external_hostname }}"
     upstream_origin: "{{ jenkins_hostname }}:{{ jenkins_http_port }}"
