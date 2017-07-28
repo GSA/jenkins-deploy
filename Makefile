@@ -27,12 +27,15 @@ validate_ansible:
 
 validate: validate_terraform validate_ansible
 
+start_container:
+	docker run -it --privileged -d --name remote centos/systemd
+
 test_ci:
 	cd $(PLAYBOOK_DIR) && ansible-playbook -i hosts-docker test.yml
 
 test:
 	circleci build --job validate_terraform
 	# CircleCI CLI doesn't clean up remote containers
-	docker rm -f remote
+	docker rm -f remote || true
 	circleci build
 	docker rm -f remote

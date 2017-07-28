@@ -17,3 +17,18 @@ the [CC0 1.0 Universal public domain dedication](https://creativecommons.org/pub
 All contributions to this project will be released under the CC0
 dedication. By submitting a pull request, you are agreeing to comply
 with this waiver of copyright interest.
+
+## Development
+
+### Testing locally
+
+1. [Install the CircleCI CLI.](https://circleci.com/docs/2.0/local-jobs/#installing-the-cli-locally)
+1. Run the tests.
+
+    ```sh
+    make test
+    ```
+
+### Testing in AWS
+
+See [the documentation](docs/integration.md).

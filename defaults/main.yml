@@ -1,4 +1,5 @@
 ---
+jenkins_audit_file_path: /var/log/jenkins/audit.log.0
 # the homepage may not be accessible if anonymous users don't have read permissions, so check the login page
 jenkins_health_check_path: /login
 
@@ -14,9 +15,11 @@ jenkins_ssh_user: jenkins
 jenkins_plugins:
   - ansible
   - ansicolor
+  - audit-trail
   - blueocean
   - github
   - pipeline-utility-steps
+  - role-strategy
   - ssh-agent
   - timestamper
   - workflow-aggregator

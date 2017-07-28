@@ -1,0 +1,10 @@
+---
+- name: Install rsyslog
+  yum:
+    name: rsyslog
+
+- name: Copy rsyslog config file
+  template:
+    src: rsyslog.conf
+    dest: /etc/rsyslog.d/jenkins-audit.conf
+  notify: Restart rsyslog
