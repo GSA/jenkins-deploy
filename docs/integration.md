@@ -9,6 +9,13 @@ If you want to create a standalone Jenkins with the example out-of-the-box confi
     * [Ansible](http://docs.ansible.com/ansible/intro_installation.html)
     * [Terraform Inventory](https://github.com/adammck/terraform-inventory)
 1. [Configure Terraform.](https://www.terraform.io/docs/providers/aws/#authentication)
+1. Initialize Terraform.
+
+    ```sh
+    cd terraform
+    terraform init
+    ```
+
 1. Create an Ansible secrets file.
 
     ```sh

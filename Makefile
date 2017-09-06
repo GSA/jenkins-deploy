@@ -7,6 +7,9 @@ all: terraform ansible
 install_roles:
 	cd $(PLAYBOOK_DIR) && ansible-galaxy install -r requirements.yml
 
+terraform_init:
+	cd $(TERRAFORM_DIR) && terraform init -backend=false
+
 .PHONY: terraform
 terraform:
 	cd $(TERRAFORM_DIR) && terraform apply
