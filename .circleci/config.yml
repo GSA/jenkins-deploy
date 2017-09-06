@@ -31,6 +31,9 @@ jobs:
           name: Install Make
           command: apk add --update make
       - run:
+          name: Set up Terraform
+          command: make terraform_init
+      - run:
           name: Check Terraform syntax
           command: make validate_terraform
 workflows:
