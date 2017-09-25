@@ -24,6 +24,8 @@ jenkins_plugins:
   - timestamper
   - workflow-aggregator
   - ws-cleanup
+  - saml
+  - periodicbackup
 
 # Use this variable if you want to append to the recommended `jenkins_plugins` above.
 additional_jenkins_plugins: []
