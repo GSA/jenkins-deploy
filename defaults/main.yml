@@ -26,6 +26,7 @@ jenkins_plugins:
   - ws-cleanup
   - saml
   - periodicbackup
+  - aws-credentials
 
 # Use this variable if you want to append to the recommended `jenkins_plugins` above.
 additional_jenkins_plugins: []
