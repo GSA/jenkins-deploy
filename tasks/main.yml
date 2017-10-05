@@ -1,8 +1,23 @@
 ---
+- name: Enable Extras repo for ansible
+  ini_file:
+    dest: /etc/yum.repos.d/redhat-rhui.repo
+    section: rhui-REGION-rhel-server-extras
+    option: enabled
+    value: 1
+
+- name: Set yum repo for AWSCLI
+  ini_file:
+    dest: /etc/yum.repos.d/redhat-rhui.repo
+    section: rhui-REGION-rhel-server-optional
+    option: enabled
+    value: 1
+
 - name: Install dependencies
   yum:
     name:
       - ansible
+      - awscli
       - git
       - python2-pip
       # need latest versions for installing Jenkins plugins - otherwise get a certificate error
