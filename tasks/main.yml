@@ -85,6 +85,14 @@
   fail:
   when: "'Jenkins' not in jenkins_req.content"
 
-- include: nginx.yml
-- include: logging.yml
-- include: ssh.yml
+- import_tasks: nginx.yml
+- import_tasks: logging.yml
+- import_tasks: ssh.yml
+
+- name: Install terraform
+  include_role:
+    name: mauromedda.ansible_role_terraform
+
+- name: Install terragrunt
+  include_role:
+    name: mauromedda.ansible_role_terragrunt
