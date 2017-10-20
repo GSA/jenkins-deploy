@@ -60,3 +60,7 @@ dependencies:
     upstream_origin: "{{ jenkins_hostname }}:{{ jenkins_http_port }}"
     # for backwards compatability, prior to https://github.com/GSA/jenkins-deploy/pull/36
     nginx_proxy_vhost_path: "{{ nginx_vhost_path }}/jenkins.conf"
+
+  - role: mauromedda.ansible_role_terraform
+
+  - role: mauromedda.ansible_role_terragrunt
