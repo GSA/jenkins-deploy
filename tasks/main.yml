@@ -26,17 +26,23 @@
       - docker
     state: latest
 
+- name: Test to see if Docker group is already installed
+  shell: grep "^docker" /etc/group
+  register: test_docker_grep
+
 - name: Docker setup-groupadd
   command: groupadd docker
   become: true
   become_user: root
   become_method: sudo
+  when: test_docker_grep.stdout == ""
 
 - name: Docker setup-jenkins user
   command: usermod -a -G docker jenkins
   become: true
   become_user: root
   become_method: sudo
+  when: test_docker_grep.stdout == ""
 
 - name: Docker setup-restart docker
   command: systemctl restart docker
