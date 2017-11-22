@@ -38,8 +38,8 @@
     state: present
     append: yes
 
-- name: Docker setup-restart docker
-  command: systemctl restart docker
+- name: Docker setup-set docker to start on boot
+  command: systemctl enable docker
   become: true
   become_user: root
   become_method: sudo
